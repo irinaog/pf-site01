@@ -1,12 +1,16 @@
 "use strict"
 const gulp = require('gulp'),
-concatCSS = require('gulp-concat-css'),
-minifyCSS = require('gulp-minify-css'),
-rename = require("gulp-rename"),
-notify = require('gulp-notify'),
-prefix = require('gulp-autoprefixer'),
-livereload = require('gulp-livereload'),
-webserver = require('gulp-webserver');
+    concatCSS = require('gulp-concat-css'),
+     sass = require('gulp-sass')(require('sass')),
+    minifyCSS = require('gulp-minify-css'),
+    rename = require("gulp-rename"),
+    notify = require('gulp-notify'),
+    prefix = require('gulp-autoprefixer'),
+    webserver = require('gulp-webserver'),
+    uncss = require('gulp-uncss-task'),
+    livereload = require('gulp-livereload');
+   
+
 
 
 //liveserver
@@ -26,8 +30,8 @@ gulp.task('html', function () {
 //css
 gulp.task('css', function () {
     //place code for your default task here
-    return gulp.src('css/**/*.css')
-        .pipe(concatCSS("bundle.css"))
+    return gulp.src('sass/style.scss')
+        .pipe(sass())
         .pipe(prefix('last 15 version'))
         .pipe(minifyCSS(''))
         .pipe(rename('bundle.min.css'))
@@ -35,9 +39,18 @@ gulp.task('css', function () {
     // .pipe(notify('Done!'))
 })
 
+//remove unused css
+// gulp.task('uncss', function() {
+//     gulp.src('app/css/bundle.min.css')
+//         .pipe(uncss({
+//             html: ['app/index.html']
+//         }))
+//         .pipe(gulp.dest('app/css'));
+// });
+
 //watch
 gulp.task('watch', function(){
-    gulp.watch('css/**/*.css', gulp.series(['css']));
+    gulp.watch('sass/style.scss', gulp.series(['css']));
     gulp.watch('app/index.html', gulp.series(['html']));
 });
 

@@ -1,1 +1,1 @@
-h1,p{text-align:center}body{padding:20px 40px;background:-o-linear-gradient(45deg,#333,#247770);background:linear-gradient(45deg,#333,#247770);background-repeat:no-repeat}h1{text-transform:uppercase}p{color:bisque;font-family:Arial}
+h1,p{margin-top:var(16px)}body{padding:var(20px 40px);background:-o-linear-gradient(45deg,#555,red);background:linear-gradient(45deg,#555,red)}p{color:#3bbfce}div{display:block;width:100px;height:100px}h1{text-transform:uppercase;text-align:center}
