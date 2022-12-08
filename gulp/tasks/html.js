@@ -7,7 +7,8 @@ export const html = () => {
         .pipe(app.plugins.plumber(
             app.plugins.notify.onError({
                 title: "HTML",
-            message:'Error: <%= error.message%>'})
+                message: 'Error: <%= error.message%>'
+            })
         ))
         .pipe(fileinclude())
         .pipe(app.plugins.replace(/@img\//g, 'img/'))
@@ -23,8 +24,9 @@ export const html = () => {
                 ]
             },
             'output': {
-                'file':'gulp/version.json'
+                'file': 'gulp/version.json'
             }
         }))
-        .pipe(app.gulp.dest(app.path.build.html)) 
+        .pipe(app.gulp.dest(app.path.build.html))
+        .pipe(app.plugins.browsersync.stream());
 }
