@@ -1,7 +1,19 @@
 body{
-    background-color: aquamarine;
+    background:url('@img/photo_2020-10-28_20-24-28.jpg') 0 0 no-repeat;
     padding: 40px 20px;
    span{
     color: navy;
    }
+}
+
+@media (min-width:768px) {
+    body{
+        background-color: bisque;
+    }
+}
+
+@media (min-width:768px) {
+    span {
+        color: green;
+    }
 }
