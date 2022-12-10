@@ -15,6 +15,7 @@ const sass = gulpSass(dartSass);
 
 export const scss = () => {
     return app.gulp.src(app.path.src.scss, { sourcemaps: true })
+        //обработчик ошибок
         .pipe(app.plugins.plumber(
             app.plugins.notify.onError({
                 title: "SCSS",
@@ -25,6 +26,7 @@ export const scss = () => {
         .pipe(sass({
             outputStyle:'expanded'
         }))
+        //группировка медиазапросов
         .pipe(groupCssMediaQueries())
         .pipe(webpcss({
             webpClass: ".webp",
@@ -42,5 +44,6 @@ export const scss = () => {
             extname:".min.css"
         }))
         .pipe(app.gulp.dest(app.path.build.scss))
+        //перезагрузка сервера
         .pipe(app.plugins.browsersync.stream());
 };
