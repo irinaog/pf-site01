@@ -8,6 +8,8 @@ import {plugins} from './gulp/config/plugins.js'
 
 //Передаём значения в глобальную перменную
 global.app = {
+    isBuild: process.argv.includes('--builds'),
+    isDev:!process.argv.includes('--build'),
     path: path,
     gulp: gulp,
     plugins:plugins,
@@ -22,6 +24,7 @@ import { scss } from './gulp/tasks/scss.js';
 import { js } from './gulp/tasks/js.js';
 import { images } from './gulp/tasks/images.js';
 import { otfToTtf, ttfToWoff, fontStyle } from './gulp/tasks/fonts.js';
+import { svgSprite } from './gulp/tasks/svgSprite.js';
 
 //наблюдатель за изменениями в файлах
 function watcher() {
@@ -32,6 +35,8 @@ function watcher() {
     gulp.watch(path.watch.images, images);
 }
 
+export {svgSprite}
+
 //Последовательность обработки шрифтов
 const fonts = gulp.series(otfToTtf, ttfToWoff, fontStyle);
 
@@ -39,7 +44,10 @@ const fonts = gulp.series(otfToTtf, ttfToWoff, fontStyle);
 const mainTasks = gulp.series(fonts, gulp.parallel(copy, html, scss, js, images));
 
 //построение сценарией выполнения задач
-const dev = gulp.series(reset, mainTasks, gulp.parallel(watcher,server));
+const dev = gulp.series(reset, mainTasks, gulp.parallel(watcher, server));
+const build = gulp.series(reset, mainTasks);
+
+export {dev, build}
 
 //выполнение задачи по умлолчанию
 gulp.task('default', dev)

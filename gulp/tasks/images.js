@@ -12,9 +12,13 @@ export const images = () => {
         //проверяем картинки в папке результатов, чтобы обрабатывать только те, которые изминились (или которых нет)
         .pipe(app.plugins.newer(app.path.build.images))
         //создаём изображение webp
-        .pipe(webp())
+        .pipe(app.plugins.if(
+            app.isBuild,
+            webp()))
         // загружаем изоюражение в папку с результатом
-        .pipe(app.gulp.dest(app.path.build.images))
+        .pipe(
+            app.plugins.if(app.isBuild,
+            app.gulp.dest(app.path.build.images)))
         .pipe(app.gulp.src(app.path.src.images))
         .pipe(app.plugins.newer(app.path.build.images))
         //сжимаем картинки
