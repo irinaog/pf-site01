@@ -25,6 +25,7 @@ import { js } from './gulp/tasks/js.js';
 import { images } from './gulp/tasks/images.js';
 import { otfToTtf, ttfToWoff, fontStyle } from './gulp/tasks/fonts.js';
 import { svgSprite } from './gulp/tasks/svgSprite.js';
+import { zip } from './gulp/tasks/zip.js';
 
 //наблюдатель за изменениями в файлах
 function watcher() {
@@ -46,8 +47,11 @@ const mainTasks = gulp.series(fonts, gulp.parallel(copy, html, scss, js, images)
 //построение сценарией выполнения задач
 const dev = gulp.series(reset, mainTasks, gulp.parallel(watcher, server));
 const build = gulp.series(reset, mainTasks);
+const deployZip = gulp.series(reset, mainTasks, zip);
 
-export {dev, build}
+export { dev };
+export { build };
+export { deployZip };
 
 //выполнение задачи по умлолчанию
 gulp.task('default', dev)
