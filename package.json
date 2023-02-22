@@ -47,7 +47,7 @@
     "build": "gulp build --build",
     "zip": "gulp deployZip --build",
     "deploy": "gulp deployFtp --build",
-    "svgSprite": "gulp svgSprive"
+    "svgSprive": "gulp svgSprive"
   },
   "repository": {
     "type": "git",
